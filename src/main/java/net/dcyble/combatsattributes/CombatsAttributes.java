@@ -61,8 +61,7 @@ public class CombatsAttributes implements ModInitializer {
 			PlayerDisconnect.savePlayerData(player, world);
 		});
 
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-			AddXPCommand.register(dispatcher);
-		});
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
+				AddXPCommand.register(dispatcher));
 	}
 }

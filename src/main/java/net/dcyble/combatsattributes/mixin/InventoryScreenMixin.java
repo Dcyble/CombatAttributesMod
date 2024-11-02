@@ -25,8 +25,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Arrays;
-
 import static net.dcyble.combatsattributes.CombatsAttributesClient.CLIENT_TO_SERVER_A;
 import static net.dcyble.combatsattributes.playerprogress.clientlogic.FreePoints.freePoints;
 import static net.dcyble.combatsattributes.playerprogress.clientlogic.attributes.Strength.strength;
