@@ -1,0 +1,5 @@
+[
+  ["minecraft:bow", 0, 1, 0, 0],
+  ["minecraft:crossbow", 0, 2, 0, 0],
+  ["minecraft:trident", 0, 3, 1, 0]
+]

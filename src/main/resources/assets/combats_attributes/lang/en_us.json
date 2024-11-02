@@ -1,0 +1,26 @@
+{
+  "attributes": "Attributes",
+
+  "strength": "Strength:",
+  "agility": "Agility:",
+  "intelligence": "Intelligence:",
+  "vitality": "Vitality:",
+
+  "free_points": "Free Points:",
+  "level": "Level:",
+  "progress": "Progress:",
+
+  "xp_received": "You got %s experience!",
+
+  "requires": "Requires:",
+
+  "not_enough_attributes": "Your attributes are too low to",
+  "to_use": "use this item!",
+  "to_attack": "attack with this item!",
+  "to_wear": "wear this item!",
+
+  "getting_level": "You got %s level!",
+  "amount_free_points": "Now you have %s free points.",
+
+  "accept": "Accept"
+}

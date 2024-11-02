@@ -1,0 +1,8 @@
+[
+  ["minecraft:leather_chestplate", 1, 0, 0, 0],
+  ["minecraft:chainmail_chestplate", 2, 2, 0, 0],
+  ["minecraft:iron_chestplate", 3, 0, 0, 0],
+  ["minecraft:diamond_chestplate", 4, 0, 0, 0],
+  ["minecraft:golden_chestplate", 5, 0, 0, 0],
+  ["minecraft:netherite_chestplate", 6, 2, 3, 1]
+]

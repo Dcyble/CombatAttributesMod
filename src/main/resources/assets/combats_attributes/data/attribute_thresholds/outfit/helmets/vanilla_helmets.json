@@ -1,0 +1,9 @@
+[
+  ["minecraft:leather_helmet", 1, 0, 0, 0],
+  ["minecraft:chainmail_helmet", 2, 2, 0, 0],
+  ["minecraft:iron_helmet", 3, 0, 0, 0],
+  ["minecraft:diamond_helmet", 4, 0, 0, 0],
+  ["minecraft:golden_helmet", 5, 0, 0, 0],
+  ["minecraft:netherite_helmet", 6, 2, 3, 1],
+  ["minecraft:turtle_helmet", 0, 0, 0, 1]
+]

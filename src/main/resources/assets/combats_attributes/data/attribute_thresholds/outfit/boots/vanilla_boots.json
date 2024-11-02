@@ -1,0 +1,8 @@
+[
+  ["minecraft:leather_boots", 1, 0, 0, 0],
+  ["minecraft:chainmail_boots", 2, 2, 0, 0],
+  ["minecraft:iron_boots", 3, 0, 0, 0],
+  ["minecraft:diamond_boots", 4, 0, 0, 0],
+  ["minecraft:golden_boots", 5, 0, 0, 0],
+  ["minecraft:netherite_boots", 6, 2, 3, 1]
+]

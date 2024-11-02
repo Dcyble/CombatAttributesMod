@@ -1,0 +1,8 @@
+[
+  ["minecraft:leather_leggings", 1, 0, 0, 0],
+  ["minecraft:chainmail_leggings", 2, 2, 0, 0],
+  ["minecraft:iron_leggings", 3, 0, 0, 0],
+  ["minecraft:diamond_leggings", 4, 0, 0, 0],
+  ["minecraft:golden_leggings", 5, 0, 0, 0],
+  ["minecraft:netherite_leggings", 6, 2, 3, 1]
+]

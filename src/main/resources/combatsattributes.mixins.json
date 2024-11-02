@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "package": "net.dcyble.combatsattributes.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "InventoryScreenMixin",
+    "ArmorItemMixin",
+    "ItemMixin",
+    "LivingEntityMixin",
+    "PlayerEntityMixin",
+    "ScreenHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "StatusEffectHudMixin"
+  ]
+}
