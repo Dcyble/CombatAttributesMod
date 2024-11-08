@@ -1,6 +1,4 @@
 {
-  "attributes": "Атрибути",
-
   "strength": "Сила:",
   "agility": "Спритність:",
   "intelligence": "Інтелект:",
@@ -22,5 +20,6 @@
   "getting_level": "Ви отримали %s рівень!",
   "amount_free_points": "Тепер ви маєте %s поінтів.",
 
-  "accept": "Підтвердити"
+  "accept": "Підтвердити зміни",
+  "your_progress": "...ще %s до наступного рівня"
 }

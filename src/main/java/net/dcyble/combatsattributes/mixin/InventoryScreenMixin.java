@@ -2,9 +2,7 @@ package net.dcyble.combatsattributes.mixin;
 
 import io.netty.buffer.Unpooled;
 import net.dcyble.combatsattributes.CombatsAttributesClient;
-import net.dcyble.combatsattributes.playerprogress.clientlogic.FreePoints;
-import net.dcyble.combatsattributes.playerprogress.clientlogic.Level;
-import net.dcyble.combatsattributes.playerprogress.clientlogic.XP;
+import net.dcyble.combatsattributes.playerprogress.clientlogic.Progress;
 import net.dcyble.combatsattributes.playerprogress.clientlogic.attributes.Agility;
 import net.dcyble.combatsattributes.playerprogress.clientlogic.attributes.Intelligence;
 import net.dcyble.combatsattributes.playerprogress.clientlogic.attributes.Strength;
@@ -26,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dcyble.combatsattributes.CombatsAttributesClient.CLIENT_TO_SERVER_A;
-import static net.dcyble.combatsattributes.playerprogress.clientlogic.FreePoints.freePoints;
+import static net.dcyble.combatsattributes.playerprogress.clientlogic.Progress.freePoints;
 import static net.dcyble.combatsattributes.playerprogress.clientlogic.attributes.Strength.strength;
 import static net.dcyble.combatsattributes.playerprogress.clientlogic.attributes.Agility.agility;
 import static net.dcyble.combatsattributes.playerprogress.clientlogic.attributes.Intelligence.intelligence;
@@ -69,7 +67,7 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
     @Unique
     private Identifier panelTexture = new Identifier("combats_attributes", "textures/gui/attribute_panel.png");
     @Unique
-    private Identifier gainButtonTexture = new Identifier("combats_attributes", "textures/gui/gain_button.png");
+    private Identifier changeButtonTexture = new Identifier("combats_attributes", "textures/gui/change_button.png");
     @Unique
     private Identifier acceptButtonTexture = new Identifier("combats_attributes", "textures/gui/accept_button.png");
 
@@ -78,12 +76,14 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
     public void init(CallbackInfo info) {
         panelSwitchButton = new TexturedButtonWidget(
                 x + 140, y + 61, 18, 18, 0, 0, 0,
-                panelSwitchButtonTexture, 18, 56, button ->
-                CombatsAttributesClient.isPanelVisible = !CombatsAttributesClient.isPanelVisible);
+                panelSwitchButtonTexture, 18, 56, button -> {
+                    CombatsAttributesClient.isPanelVisible = !CombatsAttributesClient.isPanelVisible;
+                    Progress.updateXpDif();
+                });
 
         strengthGainButton = new TexturedButtonWidget(
                 x + backgroundWidth + 99, y + 40, 7, 7, 0, 0, 0,
-                gainButtonTexture, 7, 7, button -> {
+                changeButtonTexture, 7, 15, button -> {
                     if (freePoints > 0 && addedStrength < 9) {
                         freePoints -= 1;
                         addedStrength += 1;
@@ -92,7 +92,7 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
                 });
         agilityGainButton = new TexturedButtonWidget(
                 x + backgroundWidth + 99, y + 55, 7, 7, 0, 0, 0,
-                gainButtonTexture, 7, 7, button -> {
+                changeButtonTexture, 7, 15, button -> {
                     if (freePoints > 0 && addedAgility < 9) {
                         freePoints -= 1;
                         addedAgility += 1;
@@ -101,7 +101,7 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
                 });
         intelligenceGainButton = new TexturedButtonWidget(
                 x + backgroundWidth + 99, y + 70, 7, 7, 0, 0, 0,
-                gainButtonTexture, 7, 7, button -> {
+                changeButtonTexture, 7, 15, button -> {
                     if (freePoints > 0 && addedIntelligence < 9) {
                         freePoints -= 1;
                         addedIntelligence += 1;
@@ -110,7 +110,7 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
                 });
         vitalityGainButton = new TexturedButtonWidget(
                 x + backgroundWidth + 99, y + 85, 7, 7, 0, 0, 0,
-                gainButtonTexture, 7, 7,button -> {
+                changeButtonTexture, 7, 15, button -> {
                     if (freePoints > 0 && addedVitality < 9) {
                         freePoints -= 1;
                         addedVitality += 1;
@@ -119,8 +119,8 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
                 });
 
         strengthLossButton = new TexturedButtonWidget(
-                x + backgroundWidth + 107, y + 40, 7, 7, 0, 0, 0,
-                gainButtonTexture, 7, 7, button -> {
+                x + backgroundWidth + 107, y + 40, 7, 7, 0, 8, 0,
+                changeButtonTexture, 7, 15, button -> {
                     if (addedStrength > 0) {
                         addedStrength -= 1;
                         freePoints += 1;
@@ -128,8 +128,8 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
                     sendPlayerData();
                 });
         agilityLossButton = new TexturedButtonWidget(
-                x + backgroundWidth + 107, y + 55, 7, 7, 0, 0, 0,
-                gainButtonTexture, 7, 7, button -> {
+                x + backgroundWidth + 107, y + 55, 7, 7, 0, 8, 0,
+                changeButtonTexture, 7, 15, button -> {
                     if (addedAgility > 0) {
                         addedAgility -= 1;
                         freePoints += 1;
@@ -137,8 +137,8 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
                     sendPlayerData();
                 });
         intelligenceLossButton = new TexturedButtonWidget(
-                x + backgroundWidth + 107, y + 70, 7, 7, 0, 0, 0,
-                gainButtonTexture, 7, 7, button -> {
+                x + backgroundWidth + 107, y + 70, 7, 7, 0, 8, 0,
+                changeButtonTexture, 7, 15, button -> {
                     if (addedIntelligence > 0) {
                         addedIntelligence -= 1;
                         freePoints += 1;
@@ -146,8 +146,8 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
                     sendPlayerData();
                 });
         vitalityLossButton = new TexturedButtonWidget(
-                x + backgroundWidth + 107, y + 85, 7, 7, 0, 0, 0,
-                gainButtonTexture, 7, 7, button -> {
+                x + backgroundWidth + 107, y + 85, 7, 7, 0, 8, 0,
+                changeButtonTexture, 7, 15, button -> {
                     if (addedVitality > 0) {
                         addedVitality -= 1;
                         freePoints += 1;
@@ -156,7 +156,7 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
                 });
 
         acceptButton = new TexturedButtonWidget(x + backgroundWidth + 99, y + 101, 15, 15, 0, 0, 0,
-                acceptButtonTexture, 15, 15, button -> {
+                acceptButtonTexture, 15, 31, button -> {
             strength += addedStrength;
             agility += addedAgility;
             intelligence += addedIntelligence;
@@ -215,35 +215,31 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
 
             drawContext.drawTexture(panelTexture,
                     x + backgroundWidth + 2, y,
-                    0, 0, 120, this.backgroundHeight);
+                    0, 0, 120, 166, 120, 166);
 
             if (client != null) {
-                String title = Text.translatable("attributes").getString();
-                int titleX = x + backgroundWidth + 62 - (client.textRenderer.getWidth(title) / 2);
-                drawContext.drawText(client.textRenderer, title, titleX, y + 10, 0x3C3C3C, false);
-
                 drawContext.drawText(client.textRenderer,
                         Text.translatable("strength").getString() + " " + Strength.getStrength(),
-                        x + backgroundWidth + 10, y + 40, 0x3C3C3C, false);
+                        x + backgroundWidth + 10, y + 40, 0xFFFFFF, true);
                 drawContext.drawText(client.textRenderer,
                         Text.translatable("agility").getString() + " " + Agility.getAgility(),
-                        x + backgroundWidth + 10, y + 55, 0x3C3C3C, false);
+                        x + backgroundWidth + 10, y + 55, 0xFFFFFF, true);
                 drawContext.drawText(client.textRenderer,
                         Text.translatable("intelligence").getString() + " " + Intelligence.getIntelligence(),
-                        x + backgroundWidth + 10, y + 70, 0x3C3C3C, false);
+                        x + backgroundWidth + 10, y + 70, 0xFFFFFF, true);
                 drawContext.drawText(client.textRenderer,
                         Text.translatable("vitality").getString() + " " + Vitality.getVitality(),
-                        x + backgroundWidth + 10, y + 85, 0x3C3C3C, false);
+                        x + backgroundWidth + 10, y + 85, 0xFFFFFF, true);
 
                 if (children().contains(acceptButton)) {
                     drawContext.drawText(client.textRenderer, Text.literal("+" + Strength.getAddedStrength()),
-                            x + backgroundWidth + 86, y + 40, 0x189622, false);
+                            x + backgroundWidth + 86, y + 40, 0xead776, false);
                     drawContext.drawText(client.textRenderer, Text.literal("+" + Agility.getAddedAgility()),
-                            x + backgroundWidth + 86, y + 55, 0x189622, false);
+                            x + backgroundWidth + 86, y + 55, 0x76ea77, false);
                     drawContext.drawText(client.textRenderer, Text.literal("+" + Intelligence.getAddedIntelligence()),
-                            x + backgroundWidth + 86, y + 70, 0x189622, false);
+                            x + backgroundWidth + 86, y + 70, 0xba76ea, false);
                     drawContext.drawText(client.textRenderer, Text.literal("+" + Vitality.getAddedVitality()),
-                            x + backgroundWidth + 86, y + 85, 0x189622, false);
+                            x + backgroundWidth + 86, y + 85, 0xea7676, false);
 
                     strengthGainButton.setPosition(x + backgroundWidth + 99, y + 40);
                     agilityGainButton.setPosition(x + backgroundWidth + 99, y + 55);
@@ -257,57 +253,64 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
 
                     acceptButton.setPosition(x + backgroundWidth + 99, y + 101);
 
-                    strengthGainButton.drawTexture(drawContext, gainButtonTexture,
+                    strengthGainButton.drawTexture(drawContext, changeButtonTexture,
                             x + backgroundWidth + 99, y + 40,
                             0, 0, 0,
-                            7, 7, 7, 7);
-                    agilityGainButton.drawTexture(drawContext, gainButtonTexture,
+                            7, 7, 7, 15);
+                    agilityGainButton.drawTexture(drawContext, changeButtonTexture,
                             x + backgroundWidth + 99, y + 55,
                             0, 0, 0,
-                            7, 7, 7, 7);
-                    intelligenceGainButton.drawTexture(drawContext, gainButtonTexture,
+                            7, 7, 7, 15);
+                    intelligenceGainButton.drawTexture(drawContext, changeButtonTexture,
                             x + backgroundWidth + 99, y + 70,
                             0, 0, 0,
-                            7, 7, 7, 7);
-                    vitalityGainButton.drawTexture(drawContext, gainButtonTexture,
+                            7, 7, 7, 15);
+                    vitalityGainButton.drawTexture(drawContext, changeButtonTexture,
                             x + backgroundWidth + 99, y + 85,
                             0, 0, 0,
-                            7, 7, 7, 7);
+                            7, 7, 7, 15);
 
-                    strengthLossButton.drawTexture(drawContext, gainButtonTexture,
+                    strengthLossButton.drawTexture(drawContext, changeButtonTexture,
                             x + backgroundWidth + 107, y + 40,
-                            0, 0, 0,
-                            7, 7, 7, 7);
-                    agilityLossButton.drawTexture(drawContext, gainButtonTexture,
+                            0, 8, 0,
+                            7, 7, 7, 15);
+                    agilityLossButton.drawTexture(drawContext, changeButtonTexture,
                             x + backgroundWidth + 107, y + 55,
-                            0, 0, 0,
-                            7, 7, 7, 7);
-                    intelligenceLossButton.drawTexture(drawContext, gainButtonTexture,
+                            0, 8, 0,
+                            7, 7, 7, 15);
+                    intelligenceLossButton.drawTexture(drawContext, changeButtonTexture,
                             x + backgroundWidth + 107, y + 70,
-                            0, 0, 0,
-                            7, 7, 7, 7);
-                    vitalityLossButton.drawTexture(drawContext, gainButtonTexture,
+                            0, 8, 0,
+                            7, 7, 7, 15);
+                    vitalityLossButton.drawTexture(drawContext, changeButtonTexture,
                             x + backgroundWidth + 107, y + 85,
-                            0, 0, 0,
-                            7, 7, 7, 7);
+                            0, 8, 0,
+                            7, 7, 7, 15);
 
-                    acceptButton.drawTexture(drawContext, acceptButtonTexture,
-                            x + backgroundWidth + 99, y + 101,
-                            0, 0, 0,
-                            15, 15, 15, 15);
+                    if (acceptButton.isMouseOver(mouseX, mouseY)) {
+                        acceptButton.drawTexture(drawContext, acceptButtonTexture,
+                                x + backgroundWidth + 99, y + 101,
+                                0, 16, 0,
+                                15, 15, 15, 31);
+                    } else {
+                        acceptButton.drawTexture(drawContext, acceptButtonTexture,
+                                x + backgroundWidth + 99, y + 101,
+                                0, 0, 0,
+                                15, 15, 15, 31);
+                    }
                 }
 
                 drawContext.drawText(client.textRenderer,
-                        Text.translatable("free_points").getString() + " " + FreePoints.getFreePoints(),
-                        x + backgroundWidth + 10, y + 105, 0x3C3C3C, false);
+                        Text.translatable("free_points").getString() + " " + Progress.getFreePoints(),
+                        x + backgroundWidth + 10, y + 105, 0xFFFFFF, false);
 
-                String level = Text.translatable("level").getString() + " " + Level.getLevel();
+                String level = Text.translatable("level").getString() + " " + Progress.getLevel();
                 int levelY = y + backgroundHeight - 29;
-                drawContext.drawText(client.textRenderer, level, x + backgroundWidth + 10, levelY, 0x3C3C3C, false);
+                drawContext.drawText(client.textRenderer, level, x + backgroundWidth + 10, levelY, 0xFFFFFF, false);
 
-                String progress = Text.translatable("progress").getString() + " " + XP.getXp();
+                String progress = Text.translatable("progress").getString() + " " + Progress.getXp();
                 int progressY = y + backgroundHeight - 14;
-                drawContext.drawText(client.textRenderer, progress, x + backgroundWidth + 10, progressY, 0x3C3C3C, false);
+                drawContext.drawText(client.textRenderer, progress, x + backgroundWidth + 10, progressY, 0xFFFFFF, false);
             }
         } else {
 
@@ -331,14 +334,23 @@ public abstract class InventoryScreenMixin extends HandledScreen<GenericContaine
                         18, 18, 18, 56);
             }
         }
+
+        if (acceptButton.isMouseOver(mouseX, mouseY)) {
+            drawContext.drawTooltip(textRenderer, Text.translatable("accept"), mouseX, mouseY);
+        }
+
+        if (mouseX >= (x + backgroundWidth + 8) && mouseX <= (x + backgroundWidth + 115) &&
+                mouseY >= y + backgroundHeight - 31 && mouseY <= y + backgroundHeight - 5) {
+            drawContext.drawTooltip(textRenderer, Text.translatable("your_progress", Progress.getXpDif()), mouseX, mouseY);
+        }
     }
 
     @Unique
     private void sendPlayerData() {
         int[] playerData = new int[] {
-                XP.getXp(),
-                Level.getLevel(),
-                FreePoints.getFreePoints(),
+                Progress.getXp(),
+                Progress.getLevel(),
+                Progress.getFreePoints(),
                 Strength.getStrength(),
                 Agility.getAgility(),
                 Intelligence.getIntelligence(),

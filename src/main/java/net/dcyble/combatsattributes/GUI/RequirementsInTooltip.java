@@ -55,7 +55,7 @@ public class RequirementsInTooltip {
                     if (intelligence < itemIntelligence) {
                         tooltip.add(Text.translatable("intelligence").append(" ").append(String.valueOf(itemStrength)).formatted(Formatting.RED));
                     } else {
-                        tooltip.add(Text.translatable("intelligence").append(" ").append(String.valueOf(itemStrength)).formatted(Formatting.AQUA));
+                        tooltip.add(Text.translatable("intelligence").append(" ").append(String.valueOf(itemStrength)).formatted(Formatting.DARK_PURPLE));
                     }
                 }
 

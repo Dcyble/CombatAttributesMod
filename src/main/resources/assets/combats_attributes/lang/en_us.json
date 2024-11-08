@@ -1,6 +1,4 @@
 {
-  "attributes": "Attributes",
-
   "strength": "Strength:",
   "agility": "Agility:",
   "intelligence": "Intelligence:",
@@ -22,5 +20,6 @@
   "getting_level": "You got %s level!",
   "amount_free_points": "Now you have %s free points.",
 
-  "accept": "Accept"
+  "accept": "Accept changes",
+  "your_progress": "...%s more to the next level"
 }

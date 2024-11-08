@@ -15,9 +15,9 @@ import net.minecraft.util.Identifier;
 import java.util.UUID;
 
 import static net.dcyble.combatsattributes.data.PlayerDataSynchronization.SERVER_TO_CLIENT;
-import static net.dcyble.combatsattributes.playerprogress.clientlogic.XP.Xp;
-import static net.dcyble.combatsattributes.playerprogress.clientlogic.Level.Level;
-import static net.dcyble.combatsattributes.playerprogress.clientlogic.FreePoints.freePoints;
+import static net.dcyble.combatsattributes.playerprogress.clientlogic.Progress.Xp;
+import static net.dcyble.combatsattributes.playerprogress.clientlogic.Progress.Level;
+import static net.dcyble.combatsattributes.playerprogress.clientlogic.Progress.freePoints;
 import static net.dcyble.combatsattributes.playerprogress.clientlogic.attributes.Agility.addedAgility;
 import static net.dcyble.combatsattributes.playerprogress.clientlogic.attributes.Intelligence.addedIntelligence;
 import static net.dcyble.combatsattributes.playerprogress.clientlogic.attributes.Strength.addedStrength;

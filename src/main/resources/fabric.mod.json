@@ -3,13 +3,13 @@
 	"id": "combatsattributes",
 	"version": "1.0-1.20.1",
 	"name": "Combats Attributes",
-	"description": "This mod adds skill system",
+	"description": "This mod introduces the RPG system of attributes, the leveling of which allows you to open the possibility of attacking with weapons and wearing armor. ",
 	"authors": [
 		"Dcyble"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"github": "https://github.com/Dcyble/CombatAttributesMod.git",
+		"curseforge": "https://legacy.curseforge.com/minecraft/mc-mods/combats-attributes"
 	},
 	"license": "MIT",
 	"icon": "assets/combats_attributes/icon.png",
